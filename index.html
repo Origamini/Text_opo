@@ -3,13 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Starry Background</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico&display=swap">
+    <title>Button with Gradient Border</title>
     <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: black;
+        body{
+            background: url(flower1.jpg);
+            background-repeat: no-repeat;
+            background-size:cover;
+            background-position: center center;
+            background-attachment: fixed;   
+        }
+        textarea{
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(23, 234, 132, 0.726);
+            padding: 15px;
             font-family: 'Dancing Script', cursive;
+            font-weight: 600;
+            font-size: large;
+            border: 1px solid rgba(68, 251, 135, 0.824);
+            backdrop-filter: blur(2px);
+
+        }
+        nav{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            height: 5vh;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            backdrop-filter: blur(5px);
+            color: white;
+            font-weight: 500;
+
+        }
+
+        .home{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .home-smiley{
+            margin-right: 1px;
+            transition: 0.2s linear;
+            cursor: pointer;
+        }
+        .home-smiley:hover{
+            font-size: 2rem;
+            animation: pulse 1.5s infinite, rotate 2s linear infinite;
+        }
+        @keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+        button{
+            padding: 8px;
+            margin: 3px;
+            background-color: rgba(191, 0, 255, 0.7);
+            border: none;
+            color: black;
+            font-family:monospace;
+            font-weight: 600;
+            border: 1px solid purple;
+        }
+        button:hover{
+            background-color: rgba(117, 1, 155, 0.7); 
+        }
+
+        .toggle-mode{
+            height: 1.3rem;
+            width: 7rex;
+            background-color: rgba(193, 9, 255, 0.368);
+            border-radius: 1rem;
+            border: 1px solid purple;
+            padding: 2px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .ball:hover{
+            transform: scale(1.1);
+            background: rgba(227, 234, 23, 0.831);
+        }
+       .ball{
+        position: relative;
+            height: 3rex;
+            width: 3rex;
+            border-radius: 2rex;
+            background: rgba(227, 234, 23, 0.502);
         }
 
         .stars {
@@ -28,24 +126,48 @@
             background-color: #fff; /* Default color, will be overridden by JS */
             animation: twinkle 1.5s infinite;
         }
+       /* active class */
+       body.active{
+            background:black;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .toggle-mode.active {
+             justify-content: flex-end;
+        }
 
-        /* @keyframes twinkle {
-            50% {
-                opacity: 0.2;
-            }
-            100% {
-                opacity: 0.8;
-            }
-        } */
+
     </style>
 </head>
 <body>
     <div class="stars"></div>
-
-    <!-- Your existing HTML content here -->
-
+    <nav>
+        <div class="home"><div class="home-smiley">😛</div><div class="home-sign">Home</div></div>
+        <div class="toggle-mode"><div class="ball"></div></div>
+    </nav>
+    <textarea name="text" id="textarea" rows="15"></textarea>
+    <div class="buttons">
+        <button>StartRecording</button>
+        <button>StopRecording</button>
+        <button>Copy</button>
+        <button>Clear</button>
+        <button>Copy</button>
+        <button>Clear</button>
+        <button>Copy</button>
+        <button>Clear</button>
+    </div>
     <script>
-        // Dynamically create stars with random colors
+        let mode = document.querySelector('.ball');
+        let position = document.querySelector('.toggle-mode');
+        let body = document.querySelector('body');
+        mode.onclick = function() {
+        body.classList.toggle('active');
+        position.classList.toggle('active');
+        }
+
+        //star functions
+
         function createStars() {
             const starsContainer = document.querySelector('.stars');
 
@@ -70,6 +192,9 @@
         }
 
         createStars();
-    </script>
+
+     </script>
 </body>
 </html>
+
+
