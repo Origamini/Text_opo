@@ -1,72 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Voice to Text Converter</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Starry Background</title>
     <style>
-        #output {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: 80%;
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            font-family: 'Dancing Script', cursive;
         }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #fff; /* Default color, will be overridden by JS */
+            animation: twinkle 1.5s infinite;
+        }
+
+        /* @keyframes twinkle {
+            50% {
+                opacity: 0.2;
+            }
+            100% {
+                opacity: 0.8;
+            }
+        } */
     </style>
 </head>
 <body>
+    <div class="stars"></div>
 
-<h2>Voice to Text Converter</h2>
+    <!-- Your existing HTML content here -->
 
-<button id="startBtn">Start Recording</button>
-<button id="stopBtn">Stop Recording</button>
-<button id="copyBtn">Copy Text</button>
+    <script>
+        // Dynamically create stars with random colors
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
 
-<div id="output"></div>
-
-<script>
-    const startBtn = document.getElementById('startBtn');
-    const stopBtn = document.getElementById('stopBtn');
-    const copyBtn = document.getElementById('copyBtn');
-    const outputDiv = document.getElementById('output');
-
-    let recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
-    recognition.lang = 'en-US';
-    recognition.continuous = true;
-
-    let transcript = '';
-
-    recognition.onresult = function(event) {
-        transcript = event.results[event.results.length - 1][0].transcript;
-        outputDiv.textContent = transcript;
-    };
-
-    recognition.onend = function() {
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-    };
-
-    startBtn.addEventListener('click', function() {
-        recognition.start();
-        startBtn.disabled = true;
-        stopBtn.disabled = false;
-    });
-
-    stopBtn.addEventListener('click', function() {
-        recognition.stop();
-    });
-
-    copyBtn.addEventListener('click', function() {
-        if (transcript) {
-            const textArea = document.createElement('textarea');
-            textArea.value = transcript;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            alert('Text copied to clipboard: ' + transcript);
-        } else {
-            alert('No text to copy.');
+            for (let i = 0; i < 1000; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.backgroundColor = getRandomColor();
+                starsContainer.appendChild(star);
+            }
         }
-    });
-</script>
 
+        // Generate a random color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        createStars();
+    </script>
 </body>
 </html>
